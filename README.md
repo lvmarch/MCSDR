@@ -2,7 +2,7 @@
 
 This is the official code implementation for the paper **"MCSDR: Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video"** (Currently Under Peer Review).
 
-## **📖 Abstract **
+## **📖 Abstract**
 
 Left Ventricular Ejection Fraction (LVEF) estimation from echocardiography presents an ill-posed inverse problem, where intrinsic speckle noise, artifacts, and limited viewing angles can lead to ambiguity. 
 Prevailing deep learning approaches typically formulate this task as deterministic regression, training models to minimize mean squared error. While effective, this paradigm generally encourages models to learn the conditional mean of the target variable, which may not fully capture the complex, multimodal nature of the true posterior distribution or the inherent aleatoric uncertainty. 
