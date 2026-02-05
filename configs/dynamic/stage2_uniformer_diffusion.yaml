@@ -1,0 +1,64 @@
+# Stage 2: Freeze the feature extractor and train the diffusion head with tabular data.
+# Command: python train.py --config your_config_name.yaml
+
+run:
+  name: "ddim_notext" # Changed name to be more descriptive
+  seed: 42
+  gpu_ids: "1"
+  save_dir: "./save/"
+  notes: "xxx."
+
+data:
+  data_folder: "/Your/Data/Path/"
+  file_list_path: "/Your/Dataset/Label_CSV/FileList.csv"
+  data_loader_type: "standard"
+  batch_size: 8
+  num_workers: 16
+  frames: 32
+  frequency: 1
+  p_interval_train: [0.9, 1.0]
+  p_interval_test: [0.95]
+  aug: True
+  use_tabular_data: False  # Please keep False
+  tabular_cols: ['ESV', 'EDV']
+  tabular_config:
+    dim: 2
+    hidden_dim: 64
+
+model:
+  feature_extractor:
+    name: "uniformer_small"
+    pretrained_weights: "/Your/PretrainWeight/Checkpoint/Path/CoReEcho_UniFormerS.pth"
+
+  regressor_head:
+    name: "diffusion"
+    diffusion:
+      n_diffusion_steps: 1000
+      time_emb_dim: 64
+      predictor_config:
+        name: "LegacyAttention" # Or "MLP", or "LegacyAttention (MCSN)"
+        params:
+          hidden_dim: 256
+          n_head: 8
+#          depth: 6
+
+training:
+  stage: 2
+  epochs: 50
+  optimizer: "adamw"
+  learning_rate: 0.0003
+  finetune_lr_multiplier: 0.1
+  weight_decay: 0.00001
+  print_freq: 20
+
+evaluation:
+  val_n_clips_per_sample: 1
+  inference_samples: 40
+
+  sampler: "ddim"
+  ddim_steps: 10
+  ddim_eta: 0.0
+
+wandb:
+  use: True
+  project: "TRAIN_Dynamic"

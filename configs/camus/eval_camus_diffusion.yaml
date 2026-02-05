@@ -1,0 +1,80 @@
+# configs/camus/stage2_uniformer_diffusion.yaml
+#
+# 描述: 阶段二训练。使用从阶段一预训练的 UniFormer 权重，
+#       冻结主干网络，训练一个以 UniFormer 特征和表格数据
+#       (Age, Sex) 为条件的 Diffusion Head。
+#
+# 运行: python train.py --config configs/camus/stage2_uniformer_diffusion.yaml
+
+run:
+  name: "camus_eval"
+  seed: 42
+  gpu_ids: "1"
+  save_dir: "./save"
+  notes: "xxxxx"
+
+data:
+  data_folder: "/Your/Data/Path/"
+
+  file_list_path: "/Your/Dataset/Label_CSV/FileList.csv"
+
+  dataset_class: "EchoNet"
+
+  view: "4CH"
+
+  use_tabular_data: True
+  tabular_cols: ["Age", "Sex"]
+
+  tabular_config:
+    dim: 2
+    hidden_dim: 16
+
+  p_interval_train: [1.0]
+  p_interval_test: [1.0]
+
+  data_loader_type: "standard"
+  batch_size: 8
+  num_workers: 8
+  frames: 16
+  frequency: 1
+  aug: False
+
+model:
+  feature_extractor:
+    name: "uniformer_small"
+
+  regressor_head:
+    name: "diffusion"
+    diffusion:
+      n_diffusion_steps: 1000
+      time_emb_dim: 32
+      hidden_dim: 512
+
+      predictor_config:
+        name: "LegacyAttention"  # Or "MLP", or "LegacyAttention (MCSN)"
+        params:
+          hidden_dim: 256
+          n_head: 8
+    #          depth: 4         # How many transformer layers to stack
+
+training:
+  stage: 2
+  epochs: 50
+  optimizer: "adamw"
+  learning_rate: 0.0003
+  finetune_lr_multiplier: 0.1
+  weight_decay: 0.00001
+  print_freq: 10
+
+evaluation:
+  val_n_clips_per_sample: 1
+  inference_samples: 10
+
+  sampler: "ddim"
+  ddim_steps: 10
+  ddim_eta: 0.0
+
+wandb:
+  use: True
+  use_for_evaluation: True
+  project: "EVAL_CAMUS"
