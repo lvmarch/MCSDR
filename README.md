@@ -23,14 +23,14 @@ We use **UniFormer-S** as our feature extractor.
 
 We achieved SOTA performance on three public datasets. We provide the pretrained weights for the best models below:
 
-| Dataset | Modality | MAE ↓ | RMSE ↓ | R2 ↑ | Checkpoint                                                                                        |
-| :---- | :---- | :---- | :---- | :---- |:--------------------------------------------------------------------------------------------------|
-| **EchoNet-Dynamic** | Vision Only | **3.31** | **4.22** | **0.88** | [Download](https://drive.google.com/file/d/1CW7_MrWGZ1531QAojGCt4v_cZHnEhnJQ/view?usp=sharing)                                 |
-| **EchoNet-Pediatric** | Vision Only | 4.15 | 5.80 | 0.74 | [Download](https://drive.google.com/file/d/1jzUDhHXgeaRPXk543imzgMJKwNlIKY4c/view?usp=sharing)                                 |
-| **EchoNet-Pediatric** | Vision \+ Text | **4.13** | **5.55** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
-| **CAMUS** | Vision Only | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1oxNmLuSOaqeXmCxSGIUl1EIYMSlB5eE1/view?usp=drive_link) |
-| **CAMUS** | Vision \+ Text | **5.73** | **6.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
-**Note**: The tabular data inputs (Text/Tabular) contained in different datasets are as follows:
+| Dataset | Modality                      | MAE ↓ | RMSE ↓ | R2 ↑ | Checkpoint                                                                                        |
+| :---- |:------------------------------| :---- | :---- | :---- |:--------------------------------------------------------------------------------------------------|
+| **EchoNet-Dynamic** | Vision Only                   | **3.31** | **4.22** | **0.88** | [Download](https://drive.google.com/file/d/1CW7_MrWGZ1531QAojGCt4v_cZHnEhnJQ/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision Only                   | 4.15 | 5.80 | 0.74 | [Download](https://drive.google.com/file/d/1jzUDhHXgeaRPXk543imzgMJKwNlIKY4c/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision \+ Clinical attributes | **4.13** | **5.55** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
+| **CAMUS** | Vision Only                   | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1oxNmLuSOaqeXmCxSGIUl1EIYMSlB5eE1/view?usp=drive_link) |
+| **CAMUS** | Vision \+ clinical attributes | **5.73** | **6.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
+**Note**: The tabular data inputs (Clinical attributes) contained in different datasets are as follows:
 
 * Pediatric: Age, Sex, Weight, Height  
 * CAMUS: Age, Sex  
