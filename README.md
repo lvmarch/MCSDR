@@ -2,9 +2,12 @@
 
 This is the official code implementation for the paper **"MCSDR: Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video"** (Currently Under Peer Review).
 
-## **📖 Introduction**
+## **📖 Abstract **
 
-MCSDR is a generative regression framework based on Diffusion Models, designed to precisely estimate Left Ventricular Ejection Fraction (LVEF) from echocardiogram videos. Unlike traditional deterministic regression methods, MCSDR models the regression task as a denoising process from Gaussian noise to the target LVEF value.
+Left Ventricular Ejection Fraction (LVEF) estimation from echocardiography presents an ill-posed inverse problem, where intrinsic speckle noise, artifacts, and limited viewing angles can lead to ambiguity. 
+Prevailing deep learning approaches typically formulate this task as deterministic regression, training models to minimize mean squared error. While effective, this paradigm generally encourages models to learn the conditional mean of the target variable, which may not fully capture the complex, multimodal nature of the true posterior distribution or the inherent aleatoric uncertainty. 
+In this work, we explore a transition from deterministic regression to \textit{Generative Regression}. We introduce \textbf{MCSDR} (Multimodal Conditional Score-based Diffusion for Regression), a probabilistic framework designed to model the continuous posterior distribution of LVEF conditioned on echocardiogram videos and patient demographic priors. 
+Distinct from traditional methods that output a single point estimate, MCSDR learns a score function to refine a prediction from noise iteratively, guided by a Multimodal Conditional Score Network (MCSN). This architecture fuses visual spatiotemporal features with clinical attributes (e.g., age, sex) to constrain the solution space. 
 
 **Core Features:**
 
