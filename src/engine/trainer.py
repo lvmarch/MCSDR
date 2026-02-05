@@ -830,7 +830,7 @@ class Trainer:
 if __name__ == '__main__':
     import yaml
 
-    config = 'configs/pediatric/stage2_uniformer_diffusion.yaml'
+    config = 'configs/pediatric/train_uniformer_diffusion.yaml'
 
     try:
         with open(config, 'r') as f:

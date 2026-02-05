@@ -1,11 +1,4 @@
-# configs/camus/stage2_uniformer_diffusion.yaml
-#
-# 描述: 阶段二训练。使用从阶段一预训练的 UniFormer 权重，
-#       冻结主干网络，训练一个以 UniFormer 特征和表格数据
-#       (Age, Sex) 为条件的 Diffusion Head。
-#
-# 运行: python train.py --config configs/camus/stage2_uniformer_diffusion.yaml
-
+# configs/camus/train_uniformer_diffusion.yaml
 run:
   name: "camus_train"
   seed: 42

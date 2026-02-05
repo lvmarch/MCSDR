@@ -23,13 +23,13 @@ We use **UniFormer-S** as our feature extractor.
 
 We achieved SOTA performance on three public datasets. We provide the pretrained weights for the best models below:
 
-| Dataset | Modality | MAE ↓ | RMSE ↓ | R2 ↑ | Checkpoint |
-| :---- | :---- | :---- | :---- | :---- | :---- |
-| **EchoNet-Dynamic** | Vision Only | **3.31** | **4.22** | **0.88** | [Download](https://www.google.com/search?q=Insert+Your+Link+Here) |
-| **EchoNet-Pediatric** | Vision Only | 4.15 | 5.80 | 0.74 | [Download](https://www.google.com/search?q=Insert+Your+Link+Here) |
-| **EchoNet-Pediatric** | Vision \+ Text | **4.13** | **5.55** | **0.77** | [Download](https://www.google.com/search?q=Insert+Your+Link+Here) |
-| **CAMUS** | Vision Only | 6.22 | 8.31 | 0.58 | [Download](https://www.google.com/search?q=Insert+Your+Link+Here) |
-| **CAMUS** | Vision \+ Text | **5.73** | **6.50** | **0.66** | [Download](https://www.google.com/search?q=Insert+Your+Link+Here) |
+| Dataset | Modality | MAE ↓ | RMSE ↓ | R2 ↑ | Checkpoint                                                                                        |
+| :---- | :---- | :---- | :---- | :---- |:--------------------------------------------------------------------------------------------------|
+| **EchoNet-Dynamic** | Vision Only | **3.31** | **4.22** | **0.88** | [Download](https://drive.google.com/file/d/1CW7_MrWGZ1531QAojGCt4v_cZHnEhnJQ/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision Only | 4.15 | 5.80 | 0.74 | [Download](https://drive.google.com/file/d/1jzUDhHXgeaRPXk543imzgMJKwNlIKY4c/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision \+ Text | **4.13** | **5.55** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
+| **CAMUS** | Vision Only | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1oxNmLuSOaqeXmCxSGIUl1EIYMSlB5eE1/view?usp=drive_link) |
+| **CAMUS** | Vision \+ Text | **5.73** | **6.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
 **Note**: The tabular data inputs (Text/Tabular) contained in different datasets are as follows:
 
 * Pediatric: Age, Sex, Weight, Height  
@@ -38,7 +38,7 @@ We achieved SOTA performance on three public datasets. We provide the pretrained
 ## **🛠️ Installation**
 
 1. **Clone the Repository**  
-   git clone \[https://github.com/your-username/MCSDR.git\](https://github.com/your-username/MCSDR.git)  
+   git clone \[https://github.com/lvmarch/MCSDR.git](https://github.com/lvmarch/MCSDR.git)  
    cd MCSDR
 
 2. **Create Environment**  
@@ -61,19 +61,15 @@ Modify the data\_folder and file\_list\_path parameters in the configuration fil
 
 ## **🚀 Training**
 
-MCSDR training consists of two stages (Stage 2 is the main diffusion training phase).
-
 ### **Run Training**
 
 Use train.py and specify the corresponding configuration file. For example, training on EchoNet-Dynamic:
-
-\# Train Stage 2 (Diffusion Head Fine-tuning)  
+ 
 python train.py \--config configs/dynamic/stage2\_uniformer\_diffusion.yaml
 
 **Configuration Notes**:
 
-* Set use\_tabular\_data: True in the YAML file to enable multi-modal training.  
-* Adjust gpu\_ids to select the GPU(s) to use.
+* Set use\_tabular\_data: True in the YAML file to enable multi-modal training.
 
 ## **📊 Evaluation**
 
