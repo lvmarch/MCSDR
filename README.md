@@ -86,15 +86,15 @@ python evaluate.py \\
 ## **📁 Directory Structure**
 
 MCSDR/  
-├── configs/            \# Training and evaluation configs for each dataset  
+├── configs/            
 ├── src/  
-│   ├── data/           \# Data loading and augmentation  
-│   ├── models/         \# UniFormer, Diffusion Head, MLP Head  
-│   ├── engine/         \# Training logic  
-│   ├── losses/         \# RnC Loss, Diffusion Loss  
-│   └── utils/          \# Plotting and metrics tools  
-├── train.py            \# Training entry point  
-├── evaluate.py         \# Evaluation entry point
+│   ├── data/           
+│   ├── models/         
+│   ├── engine/         
+│   ├── losses/         
+│   └── utils/          
+├── train.py            
+├── evaluate.py         
 
 ## **🙏 Acknowledgements**
 

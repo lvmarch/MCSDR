@@ -1,4 +1,3 @@
-# src/engine/trainer.py
 import torch
 import torch.nn as nn
 import os
@@ -12,24 +11,12 @@ from torcheval.metrics.functional import r2_score as torcheval_r2_score
 import time
 from thop import profile
 
-# from ..utils.helpers import AverageMeter, set_seed, plot_predictions_vs_actuals
-# from ..data.dataset import EchoNet, EchoNetRNC
-# from ..models.uniformer import uniformer_small
-# from ..models.diffusion_head import DiffusionRegressorHead
-# from ..models.mlp_head import get_shallow_mlp_head
-# from ..losses.rnc_loss import RnCLoss
-# from ..losses.other_loss import DynamicFocusingL1Loss
-# # --- MODIFICATION START: 导入新的 METRICS ---
-# from ..utils.metrics import calculate_crps
-
 from src.utils.helpers import AverageMeter, set_seed, plot_predictions_vs_actuals
 from src.data.dataset import EchoNet, EchoNetRNC
 from src.models.uniformer import uniformer_small
 from src.models.diffusion_head import DiffusionRegressorHead
 from src.models.mlp_head import get_shallow_mlp_head
 from src.losses.rnc_loss import RnCLoss
-from src.losses.other_loss import DynamicFocusingL1Loss
-# --- MODIFICATION START: 导入新的 METRICS ---
 from src.utils.metrics import calculate_crps
 
 
@@ -321,45 +308,6 @@ class Trainer:
                 self._save_checkpoint(f'epoch_{epoch}.pth', epoch, current_mae)
 
         logging.info(f"======= Training Finished: Stage {self.train_cfg['stage']} =======")
-        logging.info("======= Final Evaluation on Test Set =======")
-        best_ckpt_path = os.path.join(self.save_dir, 'best.pth')
-        if os.path.exists(best_ckpt_path):
-            logging.info(f"Loading best model for final test from: {best_ckpt_path}")
-            checkpoint = torch.load(best_ckpt_path, map_location=self.device, weights_only=False)
-
-            fe_key = 'model_state_dict' if 'model_state_dict' in checkpoint else 'model'
-            reg_key = 'regressor_state_dict' if 'regressor_state_dict' in checkpoint else 'regressor'
-
-            if fe_key not in checkpoint or reg_key not in checkpoint:
-                logging.error(f"Checkpoint 必须包含 '{fe_key}' 和 '{reg_key}' 键。")
-                fe_state_dict, reg_state_dict = checkpoint, checkpoint
-            else:
-                fe_state_dict, reg_state_dict = checkpoint[fe_key], checkpoint[reg_key]
-
-            target_feature_extractor = self.feature_extractor.module if isinstance(self.feature_extractor,
-                                                                                   nn.DataParallel) else self.feature_extractor
-            target_regressor = self.regressor.module if isinstance(self.regressor, nn.DataParallel) else self.regressor
-            target_feature_extractor.load_state_dict(fe_state_dict)
-            target_regressor.load_state_dict(reg_state_dict)
-            logging.info(f"Best model (epoch {checkpoint.get('epoch', 'N/A')}) loaded.")
-        else:
-            logging.warning("No best model checkpoint found for final test.")
-
-        test_metrics = self._evaluate(self.test_loader, "Final", "Test")
-
-        logging.info(f"--- Final Test Metrics ---")
-        logging.info(
-            f"Standard: MAE: {test_metrics['MAE']:.4f} | RMSE: {test_metrics['RMSE']:.4f} | R2: {test_metrics['R2']:.4f} | MAPE: {test_metrics['MAPE']:.2f}%")
-        if self.model_cfg['regressor_head']['name'] == 'diffusion':
-            logging.info(f"Probabilistic: CRPS: {test_metrics['CRPS']:.4f}")
-
-        if self.cfg['wandb']['use']:
-            final_log_data = {f"test/{k}": v for k, v in test_metrics.items()}
-            scatter_plot_img_test = plot_predictions_vs_actuals(test_metrics['all_labels_for_plot'],
-                                                                test_metrics['all_preds_for_plot'],
-                                                                title=f"Final Test: Preds vs Actuals")
-            final_log_data['test/predictions_vs_actuals_scatter'] = wandb.Image(scatter_plot_img_test)
-            wandb.log(final_log_data)
 
     def _process_input_for_feature_extractor(self, images_bcthw):
         if not self.is_video_model:
@@ -604,7 +552,7 @@ class Trainer:
 
         metrics = {
             'MAE': mae, 'RMSE': rmse, 'R2': r2, 'MAPE': mape,
-            'CRPS': crps,  # <-- 添加新指标
+            'CRPS': crps,
             'all_labels_for_plot': all_labels,
             'all_preds_for_plot': all_preds
         }
@@ -691,7 +639,6 @@ class Trainer:
 
             combined_cond = dummy_features
             if reg_model.use_tabular_data and dummy_tabular is not None:
-                # 必须在 no_grad() 上下文之外运行，否则 tabular_encoder 不会被跟踪
                 with torch.no_grad():
                     tabular_emb = reg_model.tabular_encoder(dummy_tabular)
                 combined_cond = torch.cat([dummy_features, tabular_emb], dim=1)
@@ -716,7 +663,6 @@ class Trainer:
             n_samples_k = 1 # MLP K=1
             logging.info(f"回归头 (MLP) (单次运行): {total_reg_flops / 1e9:.3f} GFLOPs")
 
-        # 3.3. 总 FLOPs
         total_flops = fe_flops + total_reg_flops
         logging.info(f"总计 (FLOPs): {total_flops / 1e12:.4f} TFLOPs")
         logging.info("-" * 40)
@@ -825,40 +771,3 @@ class Trainer:
         final_results.update(vram_stats)
 
         return final_results
-
-
-if __name__ == '__main__':
-    import yaml
-
-    config = 'configs/pediatric/train_uniformer_diffusion.yaml'
-
-    try:
-        with open(config, 'r') as f:
-            cfg = yaml.safe_load(f)
-        print(f"成功加载配置文件: {config}")
-    except Exception as e:
-        print(f"加载配置文件 {config} 失败: {e}")
-        sys.exit(1)
-
-    try:
-        cfg['wandb']['use'] = False
-        print("正在初始化 Trainer (将构建模型)...")
-        trainer = Trainer(cfg)
-        print("Trainer 初始化完毕。")
-    except Exception as e:
-        print(f"初始化 Trainer 失败: {e}")
-        import traceback
-
-        traceback.print_exc()
-        sys.exit(1)
-
-    try:
-        print("\n" + "=" * 50)
-        trainer.analyze_inference_performance()
-        print("=" * 50 + "\n")
-    except Exception as e:
-        print(f"运行分析时出错: {e}")
-        import traceback
-
-        traceback.print_exc()
-        sys.exit(1)
