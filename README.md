@@ -30,6 +30,7 @@ We achieved SOTA performance on three public datasets. We provide the pretrained
 | **EchoNet-Pediatric** | Vision \+ Clinical attributes | **4.13** | **5.55** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
 | **CAMUS** | Vision Only                   | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1oxNmLuSOaqeXmCxSGIUl1EIYMSlB5eE1/view?usp=drive_link) |
 | **CAMUS** | Vision \+ clinical attributes | **5.73** | **6.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
+
 **Note**: The tabular data inputs (Clinical attributes) contained in different datasets are as follows:
 
 * Pediatric: Age, Sex, Weight, Height  
