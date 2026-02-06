@@ -1,6 +1,3 @@
-# Stage 2: Freeze the feature extractor and train the diffusion head with tabular data.
-# Command: python train.py --config your_config_name.yaml
-
 run:
   name: "ddim_notext" # Changed name to be more descriptive
   seed: 42
@@ -15,7 +12,7 @@ data:
   batch_size: 8
   num_workers: 16
   frames: 32
-  frequency: 1
+  frequency: 4
   p_interval_train: [0.9, 1.0]
   p_interval_test: [0.95]
   aug: True

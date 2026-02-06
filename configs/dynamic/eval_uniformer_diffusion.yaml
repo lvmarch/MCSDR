@@ -9,7 +9,7 @@ data:
   data_folder: "/Your/Data/Path/"
   file_list_path: "/Your/Dataset/Label_CSV/FileList.csv"
   data_loader_type: "standard"
-  batch_size: 16
+  batch_size: 8
   num_workers: 8
   frames: 32
   img_size: 112

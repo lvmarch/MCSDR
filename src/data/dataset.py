@@ -8,9 +8,9 @@ from torchvision.io import read_video
 from .augmentation import get_augmentation, get_augmentation_for_test
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.impute import SimpleImputer
-import logging  # 添加日志记录
-import random  # 为 RNC 添加
-import torch.nn.functional as F  # <-- 导入 F.interpolate 所需
+import logging
+import random
+import torch.nn.functional as F
 
 
 def valid_crop_resize(data_numpy, valid_frame_num, p_interval, window):
@@ -60,7 +60,6 @@ def valid_crop_resize(data_numpy, valid_frame_num, p_interval, window):
     return data
 
 
-
 class EchoNet(Dataset):
     def __init__(self, cfg, split='train'):
         super().__init__()
@@ -91,6 +90,11 @@ class EchoNet(Dataset):
             )
 
         self.clip_length = self.cfg['data'].get('frames', 32)
+
+        self.frequency = self.cfg['data'].get('frequency', 1)
+        if self.frequency > 1:
+            logging.info(
+                f"EchoNet (split={split}): Temporal sampling frequency set to {self.frequency} (Every {self.frequency}th frame).")
 
         if self.split == 'train' and self.cfg['data'].get('aug', False):
             self.transform = get_augmentation(n_frames=self.clip_length, num_views=1)
@@ -149,8 +153,13 @@ class EchoNet(Dataset):
         video_path = os.path.join(self.root, "Videos", video_name_with_ext)
 
         try:
+            # read_video returns (T, C, H, W) because output_format="TCHW"
             video, _, info = read_video(video_path, pts_unit='sec', output_format="TCHW")
-            video = video.float() / 255.0  # (T_full, C, H, W), [0, 1]
+            video = video.float() / 255.0
+
+            if self.frequency > 1:
+                video = video[::self.frequency]
+
         except Exception as e:
             print(f"ERROR: Could not read video {video_path}. Error: {e}")
             dummy_ef = torch.zeros(1)
@@ -166,9 +175,9 @@ class EchoNet(Dataset):
 
         video_resized_np = valid_crop_resize(video.numpy(), total_frames, self.p_interval, self.clip_length)
 
-        video_tensor = torch.from_numpy(video_resized_np).permute(1, 0, 2, 3)
+        video_tensor = torch.from_numpy(video_resized_np).permute(1, 0, 2, 3)  # 回到 (T, C, H, W)
 
-        video_tensor_T_HWC = video_tensor.permute(0, 2, 3, 1)  # (T_window, H, W, C)
+        video_tensor_T_HWC = video_tensor.permute(0, 2, 3, 1)  # (T_window, H, W, C) 用于 transform
         video_np_list = [
             (torch.clip(frame, 0, 1) * 255).numpy().astype(np.uint8)
             for frame in video_tensor_T_HWC
@@ -180,7 +189,7 @@ class EchoNet(Dataset):
         else:
             video = video_tensor.contiguous()  # (T_window, C, H, W)
 
-        video_tensor = video.permute(1, 0, 2, 3)  # (C, T_window, H, W)
+        video_tensor = video.permute(1, 0, 2, 3)  # 最后输出 (C, T_window, H, W) 供模型使用
 
         ef = record['EF']
         ef = torch.tensor([ef], dtype=torch.float32)
@@ -220,6 +229,10 @@ class EchoNetRNC(EchoNet):
         try:
             video, _, _ = read_video(video_path, pts_unit='sec', output_format="TCHW")
             video = video.float() / 255.0  # (T, C, H, W)
+
+            if self.frequency > 1:
+                video = video[::self.frequency]
+
         except Exception as e:
             logging.error(f"ERROR: RNC 无法读取 {video_path}: {e}")
             dummy_video = torch.zeros((3, self.clip_length, 112, 112))
@@ -260,4 +273,3 @@ class EchoNetRNC(EchoNet):
             return views, ef, tabular_vec
         else:
             return views, ef
-
