@@ -28,11 +28,11 @@ We achieved SOTA performance on three public datasets. We provide the pretrained
 
 | Dataset | Modality                      | MAE ↓ | RMSE ↓ | R2 ↑ | Checkpoint                                                                                        |
 | :---- |:------------------------------| :---- | :---- | :---- |:--------------------------------------------------------------------------------------------------|
-| **EchoNet-Dynamic** | Vision Only                   | **3.31** | **4.22** | **0.88** | [Download](https://drive.google.com/file/d/1CW7_MrWGZ1531QAojGCt4v_cZHnEhnJQ/view?usp=sharing)                                 |
-| **EchoNet-Pediatric** | Vision Only                   | 4.15 | 5.80 | 0.74 | [Download](https://drive.google.com/file/d/1jzUDhHXgeaRPXk543imzgMJKwNlIKY4c/view?usp=sharing)                                 |
-| **EchoNet-Pediatric** | Vision \+ Clinical attributes | **4.13** | **5.55** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
-| **CAMUS** | Vision Only                   | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1oxNmLuSOaqeXmCxSGIUl1EIYMSlB5eE1/view?usp=drive_link) |
-| **CAMUS** | Vision \+ Clinical attributes | **5.73** | **6.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
+| **EchoNet-Dynamic** | Vision Only                   | **3.76** | **4.81** | **0.84** | [Download](https://drive.google.com/file/d/1CW7_MrWGZ1531QAojGCt4v_cZHnEhnJQ/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision Only                   | 4.26 | 5.88 | 0.74 | [Download](https://drive.google.com/file/d/1jzUDhHXgeaRPXk543imzgMJKwNlIKY4c/view?usp=sharing)                                 |
+| **EchoNet-Pediatric** | Vision \+ Clinical attributes | **4.22** | **5.59** | **0.77** | [Download](https://drive.google.com/file/d/1ISSNApa-D2ieMJ3IijglD5pN41A1uSXR/view?usp=sharing)                                 |
+| **CAMUS** | Vision Only                   | 6.22 | 8.31 | 0.58 | [Download](https://drive.google.com/file/d/1eMUA2VbE_YNb2016aQwqv4ef-gXfPgcp/view?usp=sharing) |
+| **CAMUS** | Vision \+ Clinical attributes | **5.73** | **7.50** | **0.66** | [Download](https://drive.google.com/file/d/1FLMskU37D9gTI_1bimp9kszuyGSbsxvR/view?usp=sharing)    |
 
 **Note**: The tabular data inputs (Clinical attributes) contained in different datasets are as follows:
 
