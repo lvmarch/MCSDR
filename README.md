@@ -1,4 +1,5 @@
 # **MCSDR: Multi-Condition Sequential Diffusion Regression for LVEF Estimation**
+[![arXiv](https://img.shields.io/badge/arXiv-2602.08202-b31b1b.svg)](https://arxiv.org/abs/2602.08202)
 
 This is the official code implementation for the paper **"MCSDR: Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video"** (Currently Under Peer Review).
 
@@ -109,11 +110,21 @@ Parts of the code logic in this project are referenced or based on the following
 
 This project is licensed under the MIT License. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
 
-## **Citation**
+## Citation   
 
-If you find this code useful for your research, please consider citing our paper:
+If you find this project useful for your research, please consider citing our paper:    
 
-To be updated soon...
+```bibtex 
+ @misc{lv2026mcsdr,      
+    title={Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video},      
+    author={Jinrong Lv and Xun Gong and Zhaohuan Li and Weili Jiang},      
+    year={2026},      
+    eprint={2602.08202},      
+    archivePrefix={arXiv},      
+    primaryClass={cs.CV},      
+    url={[https://arxiv.org/abs/2602.08202](https://arxiv.org/abs/2602.08202)}  
+ }
+```
 
 
 [image1]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAZCAYAAACclhZ6AAADyElEQVR4Xu1XTUhUURR+gwZGRUXZoDPjnR9IrCBjaBNRm4KEapHRxqB2QbSuTQsJ3IaItYggCsIo22UGCQluJCEoioIQEiJJCEGojdj0ffPOfd535g3zbIYW4QeH9+75u+fce+6573neOv5DtLa2bta8GEh0dnZu4VML4iCfz2/VvLqRzWa7c7mc0fxa4ALA9r4xpk3L4gB2vQ1NiEkAbzU/DupNBkjA9mVDEioWixsQzOOOjo5BLYuDBiTD3ZnG/Fe9vyzVMtLp9EY4eQFnIxg2a3kcNCIZVEYS9h/hp1/LYiOTyeyDk0VQn5bFBRZjO+xH60nG80ttGPShvb19pxZ6qVRqB5WqjQmsxCU4WMLK7Hf5FnTMMtR8F0wCNFktGcyxzRkmMG5xxgG4oKBlLM7hkIAMCL6BxhFQBs+7oPegz+xaVk/KY5bb7NqLrBuyBZKbLMZnQJ9wYHfLODIZjLvg4zWeS4jnEWgv3l+BftCHq0ugSg6C/4sLHDAlkQegAVAJwouO7Bp5oB6O8ZwFPfQidoz1C9kV8VGeAPZ5jOdBU3K3RCXTjPfbRgLGs8v4CUzyfNEfaNhTc4qfOS5wwMSEx8HsAU2Iky4rk50oMSlxEDZe1btAO2kOizxb5GN8DOPfoCGrK0EEySSTyU14v5yV8oLtac4JGuAYu3yEjcfaW4ifOdCYllEYWkE+OaZjBHVKdCKTsYD8J2jUk07HgCSwoGFIEO7OhAD+kNiUq6EaxA+TmdQyCvUK2u0OdovGNZIJSkzGY6698GolQ9k8S1TLXIgfJsOyrxCWjHPQjN8tyAvuFLzPgCZYGoHhKlj7oU7HoGjDduzwKpJhidnuafzkgznwfgj2RatrIX4qF1cOKsvpvLDodBnU6+oZvwS+YuK0yxfQJjgvOf+Tp2TUnSRBBMmwhEXvOf0av0LK5wVowvstL+KClvO4YnQ5imAcNA16AppCxkdDSl5wOFeor2WE8ds5t/6p8Vt9qMREJ5SMJPAG9Mz4O8+OSDvGMRN1+AnptJXlaPyD2scLj3eIbHkF4DgFvS/U1zJBU6FQ2EUfoE4GrX8TdDKEndfqSktu07YWWOgW45/H8GeVtEa25dAKVkECKzEI3Wn3q1UmH3HPC1fOKdsAUcmsFfJZ9R1JnQgJjLRf0B329JCwChikcX4BWCpw/I4BQnYOzwU877k2Fo1IxviX9wHNZ2BnLbGMtDwK8hvQ736HYbUKxj9zN+Frj6dubIt6k2FFGNWY6gYTQdAnNb8WpCRv2Bt/rYDtdc1bxzr+If4A5FwpsdEzYfAAAAAASUVORK5CYII=>
