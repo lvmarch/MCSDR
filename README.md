@@ -1,4 +1,4 @@
-# **MCSDR: Multi-Condition Sequential Diffusion Regression for LVEF Estimation**
+# **Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video**
 [![arXiv](https://img.shields.io/badge/arXiv-2602.08202-b31b1b.svg)](https://arxiv.org/abs/2602.08202)
 
 This is the official code implementation for the paper **"MCSDR: Generative Regression for Left Ventricular Ejection Fraction Estimation from Echocardiography Video"** (Currently Under Peer Review).
